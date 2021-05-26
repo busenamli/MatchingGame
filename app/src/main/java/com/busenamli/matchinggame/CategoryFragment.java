@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 public class CategoryFragment extends Fragment {
 
     Button categoryCartoonButton, categoryVegetableButton, categoryFruitButton;
-    private View.OnClickListener mOnClickListener;
 
     static final String CARTOON = "cartoon";
     static final String VEGETABLE = "vegetable";
@@ -69,41 +68,33 @@ public class CategoryFragment extends Fragment {
         categoryVegetableButton = view.findViewById(R.id.category_vegetable_button);
         categoryFruitButton = view.findViewById(R.id.category_fruit_button);
 
-        buttonsClickHandle();
-
-    }
-
-    private void buttonsClickHandle(){
-
-        mOnClickListener = new View.OnClickListener() {
+        categoryCartoonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                int id = v.getId();
-                switch (id) {
-                    case R.id.category_cartoon_button:
-
-                        CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionCartoon = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(CARTOON);
-                        actionCartoon.setCategoryName(CARTOON);
-                        Navigation.findNavController(v).navigate(actionCartoon);
-
-                        break;
-                    case R.id.category_vegetable_button:
-
-                        CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionVegetable = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(VEGETABLE);
-                        actionVegetable.setCategoryName(VEGETABLE);
-                        Navigation.findNavController(v).navigate(actionVegetable);
-
-                        break;
-                    case R.id.category_fruit_button:
-
-                        CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionFruit = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(FRUIT);
-                        actionFruit.setCategoryName(FRUIT);
-                        Navigation.findNavController(v).navigate(actionFruit);
-
-                        break;
-                }
+                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionCartoon = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(CARTOON);
+                actionCartoon.setCategoryName(CARTOON);
+                Navigation.findNavController(v).navigate(actionCartoon);
             }
-        };
+        });
+
+        categoryVegetableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionVegetable = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(VEGETABLE);
+                actionVegetable.setCategoryName(VEGETABLE);
+                Navigation.findNavController(v).navigate(actionVegetable);
+            }
+        });
+
+        categoryFruitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionFruit = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(FRUIT);
+                actionFruit.setCategoryName(FRUIT);
+                Navigation.findNavController(v).navigate(actionFruit);
+            }
+        });
+
     }
 }

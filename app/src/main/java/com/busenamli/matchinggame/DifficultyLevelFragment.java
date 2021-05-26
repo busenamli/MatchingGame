@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 public class DifficultyLevelFragment extends Fragment {
 
     Button difficultyEasyButton, difficultyMediumButton, difficultyHardButton;
-    private View.OnClickListener mOnClickListener;
 
     /*static final String EASY = "easy";
     static final String MEDIUM = "medium";
@@ -65,65 +64,62 @@ public class DifficultyLevelFragment extends Fragment {
         difficultyMediumButton = view.findViewById(R.id.difficulty_medium_button);
         difficultyHardButton = view.findViewById(R.id.difficulty_hard_button);
 
-        buttonsClickHandle();
-
-    }
-
-    private void buttonsClickHandle() {
-
-        mOnClickListener = new View.OnClickListener() {
+        difficultyEasyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                int id = v.getId();
-                switch (id) {
-                    case R.id.difficulty_easy_button:
-
-                        /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToEasyGameFragment actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToEasyGameFragment(category);
+                /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToEasyGameFragment actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToEasyGameFragment(category);
                         actionEasy.setCategory(category);
                         Navigation.findNavController(v).navigate(actionEasy);*/
 
-                        DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,EASY);
-                        actionEasy.setCategory(category);
-                        actionEasy.setDifficulty(EASY);
-                        Navigation.findNavController(v).navigate(actionEasy);
+                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,EASY);
+                actionEasy.setCategory(category);
+                actionEasy.setDifficulty(EASY);
+                Navigation.findNavController(v).navigate(actionEasy);
 
                         /*NavDirections actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToEasyGameFragment();
                         Navigation.findNavController(view).navigate(actionEasy);*/
 
-                        break;
-                    case R.id.difficulty_medium_button:
+            }
+        });
 
-                        /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToMediumGameFragment actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToMediumGameFragment(category);
+        difficultyMediumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToMediumGameFragment actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToMediumGameFragment(category);
                         actionMedium.setCategory(category);
                         Navigation.findNavController(v).navigate(actionMedium);*/
 
-                        DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,MEDIUM);
-                        actionMedium.setCategory(category);
-                        actionMedium.setDifficulty(MEDIUM);
-                        Navigation.findNavController(v).navigate(actionMedium);
+                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,MEDIUM);
+                actionMedium.setCategory(category);
+                actionMedium.setDifficulty(MEDIUM);
+                Navigation.findNavController(v).navigate(actionMedium);
 
                         /*NavDirections actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToMediumGameFragment();
                         Navigation.findNavController(view).navigate(actionMedium);*/
 
-                        break;
-                    case R.id.difficulty_hard_button:
+            }
+        });
 
-                        /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToHardGameFragment actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToHardGameFragment(category);
+        difficultyHardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToHardGameFragment actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToHardGameFragment(category);
                         actionHard.setCategory(category);
                         Navigation.findNavController(v).navigate(actionHard);*/
 
-                        DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,MEDIUM);
-                        actionHard.setCategory(category);
-                        actionHard.setDifficulty(HARD);
-                        Navigation.findNavController(v).navigate(actionHard);
+                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,MEDIUM);
+                actionHard.setCategory(category);
+                actionHard.setDifficulty(HARD);
+                Navigation.findNavController(v).navigate(actionHard);
 
                         /*NavDirections actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToHardGameFragment();
                         Navigation.findNavController(view).navigate(actionHard);*/
 
-                        break;
-                }
             }
-        };
+        });
+
     }
 }

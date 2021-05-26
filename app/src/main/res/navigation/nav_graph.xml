@@ -28,48 +28,12 @@
         android:name="com.busenamli.matchinggame.DifficultyLevelFragment"
         android:label="fragment_difficulty_level"
         tools:layout="@layout/fragment_difficulty_level" >
-        <action
-            android:id="@+id/action_difficultyLevelFragment_to_easyGameFragment"
-            app:destination="@id/easyGameFragment" />
-        <action
-            android:id="@+id/action_difficultyLevelFragment_to_mediumGameFragment"
-            app:destination="@id/mediumGameFragment" />
-        <action
-            android:id="@+id/action_difficultyLevelFragment_to_hardGameFragment"
-            app:destination="@id/hardGameFragment" />
         <argument
             android:name="categoryName"
             app:argType="string" />
         <action
             android:id="@+id/action_difficultyLevelFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/easyGameFragment"
-        android:name="com.busenamli.matchinggame.EasyGameFragment"
-        android:label="fragment_easy_game"
-        tools:layout="@layout/fragment_easy_game" >
-        <argument
-            android:name="category"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/hardGameFragment"
-        android:name="com.busenamli.matchinggame.HardGameFragment"
-        android:label="fragment_hard_game"
-        tools:layout="@layout/fragment_hard_game" >
-        <argument
-            android:name="category"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/mediumGameFragment"
-        android:name="com.busenamli.matchinggame.MediumGameFragment"
-        android:label="fragment_medium_game"
-        tools:layout="@layout/fragment_medium_game" >
-        <argument
-            android:name="category"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"

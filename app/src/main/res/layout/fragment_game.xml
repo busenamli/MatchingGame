@@ -24,7 +24,7 @@
         android:layout_margin="20dp">
 
         <TextView
-            android:id="@+id/game_timer"
+            android:id="@+id/game_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -36,194 +36,559 @@
 
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/game_grid_layout"
-            android:layout_below="@id/game_timer"
+            android:layout_below="@id/game_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:src="@drawable/kart_arka"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:layout_column="0"
-                app:layout_row="0" />
+                app:layout_row="0">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView1_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView1"
+                    android:layout_alignTop="@+id/imageView1"
+                    android:layout_alignLeft="@+id/imageView1"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="1"
-                app:layout_row="0" />
+                app:layout_row="0">
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView2_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView2"
+                    android:layout_alignTop="@+id/imageView2"
+                    android:layout_alignLeft="@+id/imageView2"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="2"
-                app:layout_row="0" />
+                app:layout_row="0">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView3_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView3"
+                    android:layout_alignTop="@+id/imageView3"
+                    android:layout_alignLeft="@+id/imageView3"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="3"
-                app:layout_row="0" />
+                app:layout_row="0">
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView4_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView4"
+                    android:layout_alignTop="@+id/imageView4"
+                    android:layout_alignLeft="@+id/imageView4"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="0"
-                app:layout_row="1" />
+                app:layout_row="1">
 
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView5_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView5"
+                    android:layout_alignTop="@+id/imageView5"
+                    android:layout_alignLeft="@+id/imageView5"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="1"
-                app:layout_row="1" />
+                app:layout_row="1">
 
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView6_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView6"
+                    android:layout_alignTop="@+id/imageView6"
+                    android:layout_alignLeft="@+id/imageView6"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="2"
-                app:layout_row="1" />
+                app:layout_row="1">
 
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView7_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView7"
+                    android:layout_alignTop="@+id/imageView7"
+                    android:layout_alignLeft="@+id/imageView7"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="3"
-                app:layout_row="1" />
+                app:layout_row="1">
 
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView8_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView8"
+                    android:layout_alignTop="@+id/imageView8"
+                    android:layout_alignLeft="@+id/imageView8"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="0"
-                app:layout_row="2" />
+                app:layout_row="2">
 
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView9_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView9"
+                    android:layout_alignTop="@+id/imageView9"
+                    android:layout_alignLeft="@+id/imageView9"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="1"
-                app:layout_row="2" />
+                app:layout_row="2">
 
-            <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView10_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView10"
+                    android:layout_alignTop="@+id/imageView10"
+                    android:layout_alignLeft="@+id/imageView10"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="2"
-                app:layout_row="2" />
+                app:layout_row="2">
 
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView11_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView11"
+                    android:layout_alignTop="@+id/imageView11"
+                    android:layout_alignLeft="@+id/imageView11"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
                 app:layout_column="3"
-                app:layout_row="2" />
+                app:layout_row="2">
 
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView12_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView12"
+                    android:layout_alignTop="@+id/imageView12"
+                    android:layout_alignLeft="@+id/imageView12"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
-                android:visibility="gone"
                 app:layout_column="0"
-                app:layout_row="3" />
+                app:layout_row="3">
 
-            <ImageView
-                android:id="@+id/imageView14"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView13_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView13"
+                    android:layout_alignTop="@+id/imageView13"
+                    android:layout_alignLeft="@+id/imageView13"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
-                android:visibility="gone"
                 app:layout_column="1"
-                app:layout_row="3" />
+                app:layout_row="3">
 
-            <ImageView
-                android:id="@+id/imageView15"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView14_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView14"
+                    android:layout_alignTop="@+id/imageView14"
+                    android:layout_alignLeft="@+id/imageView14"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
-                android:visibility="gone"
                 app:layout_column="2"
-                app:layout_row="3" />
+                app:layout_row="3">
 
-            <ImageView
-                android:id="@+id/imageView16"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
+                <ImageView
+                    android:id="@+id/imageView15"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView15_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView15"
+                    android:layout_alignTop="@+id/imageView15"
+                    android:layout_alignLeft="@+id/imageView15"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/kart_arka"
-                android:visibility="gone"
                 app:layout_column="3"
-                app:layout_row="3" />
+                app:layout_row="3">
 
-            <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:src="@drawable/kart_arka"
-                android:visibility="gone"
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView16_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView16"
+                    android:layout_alignTop="@+id/imageView16"
+                    android:layout_alignLeft="@+id/imageView16"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 app:layout_column="0"
-                app:layout_row="4" />
+                app:layout_row="4">
 
-            <ImageView
-                android:id="@+id/imageView18"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:src="@drawable/kart_arka"
-                android:visibility="gone"
+                <ImageView
+                    android:id="@+id/imageView17"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView17_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView17"
+                    android:layout_alignTop="@+id/imageView17"
+                    android:layout_alignLeft="@+id/imageView17"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 app:layout_column="1"
-                app:layout_row="4" />
+                app:layout_row="4">
 
-            <ImageView
-                android:id="@+id/imageView19"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:src="@drawable/kart_arka"
-                android:visibility="gone"
+                <ImageView
+                    android:id="@+id/imageView18"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView18_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView18"
+                    android:layout_alignTop="@+id/imageView18"
+                    android:layout_alignLeft="@+id/imageView18"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 app:layout_column="2"
-                app:layout_row="4" />
+                app:layout_row="4">
 
-            <ImageView
-                android:id="@+id/imageView20"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:src="@drawable/kart_arka"
-                android:visibility="gone"
+                <ImageView
+                    android:id="@+id/imageView19"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView19_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView19"
+                    android:layout_alignTop="@+id/imageView19"
+                    android:layout_alignLeft="@+id/imageView19"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 app:layout_column="3"
-                app:layout_row="4" />
+                app:layout_row="4">
+
+                <ImageView
+                    android:id="@+id/imageView20"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:src="@drawable/kart_arka" />
+
+                <ImageView
+                    android:id="@+id/imageView20_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"
+                    android:layout_alignStart="@+id/imageView20"
+                    android:layout_alignTop="@+id/imageView20"
+                    android:layout_alignLeft="@+id/imageView20"/>
+
+            </RelativeLayout>
 
 
         </androidx.gridlayout.widget.GridLayout>
