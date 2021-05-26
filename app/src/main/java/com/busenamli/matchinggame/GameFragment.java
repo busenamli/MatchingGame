@@ -1,18 +1,28 @@
 package com.busenamli.matchinggame;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,24 +106,53 @@ public class GameFragment extends Fragment {
             @Override
             public void onFinish() {
 
-                /*AlertDialog.Builder alert = new AlertDialog.Builder(GameFragment.this.getActivity());
+                AlertDialog.Builder alert = new AlertDialog.Builder(GameFragment.this.getActivity());
 
-                alert.setTitle("OYUN BİTTİ");
+                alert.setTitle("ZAMAN DOLDU");
                 alert.setMessage("Puanınız: " + score);
-                alert.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton("Yeniden Oyna", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        //Fragment frg = GameFragment.this;
+                        //FragmentTransaction ft = (getActivity()).getSupportFragmentManager().beginTransaction();
+                        //(getActivity()).getSupportFragmentManager().beginTransaction().detach(GameFragment.this).attach(GameFragment.this).commit();
+
+                        /*Fragment frg = null;
+                        frg = getFragmentManager().findFragmentById(R.id.gameFragment);
+                        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.detach(frg);
+                        ft.attach(frg);
+                        ft.commit();*/
+
+                        /*Fragment frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.gameFragment);
+                        FragmentTransaction ft = (getActivity()).getSupportFragmentManager().beginTransaction();
+                        ft.detach(frg);
+                        ft.attach(frg);
+                        ft.commit();*/
+
+                        /*Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.gameFragment);
+                        if (currentFragment instanceof com.busenamli.matchinggame.GameFragment){
+                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.detach(currentFragment);
+                            fragmentTransaction.attach(currentFragment);
+                            fragmentTransaction.commit();
+                        }*/
+
 
                     }
                 });
                 alert.setNegativeButton("Çık", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(GameFragment.this.getActivity(), "Oyun Bitti!", Toast.LENGTH_SHORT).show();
+
+                        NavDirections action = GameFragmentDirections.actionGameFragmentToStartFragment();
+                        Navigation.findNavController(view).navigate(action);
                     }
                 });
 
-                alert.show();*/
+                alert.setCancelable(false);
+                alert.show();
 
             }
         }.start();
@@ -240,6 +279,7 @@ public class GameFragment extends Fragment {
 
     }
 
+
     public void gameDetails(Integer[] cardList, ImageView[] imageViewList){
 
         matchList = new ArrayList<>();
@@ -259,25 +299,21 @@ public class GameFragment extends Fragment {
                         if (clicked == 1) {
 
                             lastClicked = index;
-                            imageViewList[index].setImageResource(cardList[index]);
+                            //imageViewList[index].setImageResource(cardList[index]);
+                            changeAnimation(imageViewList[index], cardList[index]);
                             imageViewList[index].setClickable(false);
                         }
 
                         if (clicked == 2) {
 
-                            imageViewList[index].setImageResource(cardList[index]);
-                            imageViewList[lastClicked].setImageResource(cardList[lastClicked]);
+                            //imageViewList[index].setImageResource(cardList[index]);
+                            //imageViewList[lastClicked].setImageResource(cardList[lastClicked]);
+                            changeAnimation(imageViewList[index], cardList[index]);
 
                             imageViewList[index].setClickable(false);
                             imageViewList[lastClicked].setClickable(false);
 
                             if (cardList[index].toString().equals(cardList[lastClicked].toString())) {
-
-                                imageViewListIcon[index].setVisibility(View.VISIBLE);
-                                imageViewListIcon[lastClicked].setVisibility(View.VISIBLE);
-
-                                imageViewListIcon[index].setImageResource(R.drawable.ic_true);
-                                imageViewListIcon[lastClicked].setImageResource(R.drawable.ic_true);
 
                                 imageViewList[index].setClickable(false);
                                 imageViewList[lastClicked].setClickable(false);
@@ -286,36 +322,60 @@ public class GameFragment extends Fragment {
                                 matchList.add(lastClicked);
 
                                 score += 1;
-                                scoreText.setText("PUAN: " + score);
-
-                            }else{
-
-                                imageViewListIcon[index].setVisibility(View.VISIBLE);
-                                imageViewListIcon[lastClicked].setVisibility(View.VISIBLE);
-
-                                imageViewListIcon[index].setImageResource(R.drawable.ic_false);
-                                imageViewListIcon[lastClicked].setImageResource(R.drawable.ic_false);
-
-                                for(ImageView imageView : imageViewList){
-                                    imageView.setClickable(false);
-                                }
 
                                 int a = lastClicked;
 
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        imageViewListIcon[index].setVisibility(View.INVISIBLE);
-                                        imageViewListIcon[a].setVisibility(View.INVISIBLE);
 
-                                        imageViewList[index].setImageResource(R.drawable.kart_arka);
-                                        imageViewList[a].setImageResource(R.drawable.kart_arka);
+                                        imageViewListIcon[index].setVisibility(View.VISIBLE);
+                                        imageViewListIcon[a].setVisibility(View.VISIBLE);
 
-                                        for(int j = 0; j< imageViewList.length; j++){
-                                            if (!matchList.contains(j)) {
-                                                imageViewList[j].setClickable(true);
+                                        imageViewListIcon[index].setImageResource(R.drawable.ic_true);
+                                        imageViewListIcon[a].setImageResource(R.drawable.ic_true);
+
+                                        scoreText.setText("PUAN: " + score);
+                                    }
+                                }, 1000);
+
+                            }else{
+
+                                for(ImageView imageView : imageViewList){
+                                    imageView.setClickable(false);
+                                }
+
+                                int b = lastClicked;
+
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        imageViewListIcon[index].setVisibility(View.VISIBLE);
+                                        imageViewListIcon[b].setVisibility(View.VISIBLE);
+
+                                        imageViewListIcon[index].setImageResource(R.drawable.ic_false);
+                                        imageViewListIcon[b].setImageResource(R.drawable.ic_false);
+
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                imageViewListIcon[index].setVisibility(View.INVISIBLE);
+                                                imageViewListIcon[b].setVisibility(View.INVISIBLE);
+                                                System.out.println("b: " + b);
+
+                                                changeAnimation(imageViewList[index], R.drawable.kart_arka);
+                                                changeAnimation(imageViewList[b], R.drawable.kart_arka);
+
+                                                for(int j = 0; j< imageViewList.length; j++){
+                                                    if (!matchList.contains(j)) {
+                                                        imageViewList[j].setClickable(true);
+                                                    }
+                                                }
                                             }
-                                        }
+                                        }, 1000);
+
                                     }
                                 }, 1000);
 
@@ -329,6 +389,24 @@ public class GameFragment extends Fragment {
             });
 
         }
+    }
+
+    //https://stackoverflow.com/questions/46111262/card-flip-animation-in-android
+    public void changeAnimation(ImageView imageView, int resId){
+
+        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageView, "scaleX", 1f, 0f);
+        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageView, "scaleX", 0f, 1f);
+        oa1.setInterpolator(new DecelerateInterpolator());
+        oa2.setInterpolator(new AccelerateDecelerateInterpolator());
+        oa1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                imageView.setImageResource(resId);
+                oa2.start();
+            }
+        });
+        oa1.start();
     }
 
 }

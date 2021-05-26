@@ -39,12 +39,17 @@
         android:id="@+id/gameFragment"
         android:name="com.busenamli.matchinggame.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" >
+        tools:layout="@layout/fragment_game">
         <argument
             android:name="category"
             app:argType="string" />
         <argument
             android:name="difficulty"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_gameFragment_to_startFragment"
+            app:destination="@id/startFragment"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
