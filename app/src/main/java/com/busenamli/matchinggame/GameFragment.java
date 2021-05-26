@@ -29,14 +29,10 @@ public class GameFragment extends Fragment {
     String category;
     int difficulty;
     int score = 0;
-    boolean cardBack = true;
     int clicked = 0;
     int lastClicked = -1;
-    int cardNo;
-    ImageView imageView;
-    String scoreTxt;
     Handler handler;
-    Runnable runnable;
+    ArrayList<Integer> matchList;
 
     TextView scoreText, timeText;
 
@@ -48,8 +44,9 @@ public class GameFragment extends Fragment {
             imageView19Icon, imageView20Icon;
 
     ImageView[] imageViewListEasy, imageViewListMedium, imageViewListHard;
+    ImageView[] imageViewList;
     ImageView[] imageViewListIcon;
-    Integer[] cartoonList;
+    Integer[] cardList;
     CardLists cardLists;
 
     public GameFragment() {
@@ -85,174 +82,20 @@ public class GameFragment extends Fragment {
 
         init(view);
 
-        if(difficulty == Constants.EASY){
-
-            if (category.equals(Constants.CARTOON)) {
-
-                cartoonList = cardLists.easyCartoonList();
-                //ArrayList<Integer> cardNo = new ArrayList<>();
-
-                for (int i = 0; i < imageViewListEasy.length; i++){
-
-                    int index = i;
-                    //cardNo = cartoonList[i];
-                    //imageView = imageViewListEasy[i];
-
-                    imageViewListEasy[index].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            System.out.println("imageViewListEasy[index].getResources().toString():" + imageViewListEasy[index].getResources().toString());
-
-                            if (!imageViewListEasy[index].toString().equals(cartoonList[index].toString()) && clicked < 2) {
-
-                                imageViewListEasy[index].setImageResource(cartoonList[index]);
-                                imageViewListEasy[index].setClickable(false);
-
-                                if (clicked == 0) {
-                                    lastClicked = index;
-                                }
-                                clicked += 1;
-
-                            }/*else if(imageViewListEasy[index].toString().equals(cartoonList[index].toString())){
-                                imageViewListEasy[index].setImageResource(cartoonList[index]);
-                                clicked--;
-                            }*/
-
-                            if (clicked == 2) {
-
-                                //imageViewListEasy[index].setImageResource(cartoonList[index]);
-                                //imageViewListEasy[lastClicked].setImageResource(cartoonList[lastClicked]);
-
-                                System.out.println(cartoonList[index].toString() + " + " + cartoonList[lastClicked]);
-
-                                if (cartoonList[index].toString().equals(cartoonList[lastClicked].toString())) {
-
-                                    //imageViewListEasy[index].setImageResource(cartoonList[index]);
-                                    //imageViewListEasy[lastClicked].setImageResource(cartoonList[lastClicked]);
-
-                                    imageViewListIcon[index].setVisibility(View.VISIBLE);
-                                    imageViewListIcon[lastClicked].setVisibility(View.VISIBLE);
-
-                                    imageViewListIcon[index].setImageResource(R.drawable.ic_true);
-                                    imageViewListIcon[lastClicked].setImageResource(R.drawable.ic_true);
-
-                                    imageViewListEasy[index].setClickable(false);
-                                    imageViewListEasy[lastClicked].setClickable(false);
-
-                                    score += 1;
-                                    scoreTxt = String.valueOf(score);
-                                    scoreText.setText("PUAN: " + scoreTxt);
-
-                                }else{
-
-                                    /*runnable = new Runnable() {
-                                        @Override
-                                        public void run() {
-
-                                            imageViewListIcon[index].setVisibility(View.VISIBLE);
-                                            imageViewListIcon[lastClicked].setVisibility(View.VISIBLE);
-
-                                            imageViewListIcon[index].setImageResource(R.drawable.ic_false);
-                                            imageViewListIcon[lastClicked].setImageResource(R.drawable.ic_false);
-
-                                            handler.postDelayed(this,1000);
-                                        }
-                                    };
-
-                                    handler.post(runnable);*/
-                                    imageViewListEasy[index].setClickable(true);
-                                    imageViewListEasy[lastClicked].setClickable(true);
-
-                                    imageViewListEasy[index].setImageResource(cartoonList[index]);
-                                    imageViewListEasy[lastClicked].setImageResource(cartoonList[lastClicked]);
-
-                                    imageViewListIcon[index].setVisibility(View.VISIBLE);
-                                    imageViewListIcon[lastClicked].setVisibility(View.VISIBLE);
-
-                                    imageViewListIcon[index].setImageResource(R.drawable.ic_false);
-                                    imageViewListIcon[lastClicked].setImageResource(R.drawable.ic_false);
-
-                                    imageViewListEasy[index].setImageResource(R.drawable.kart_arka);
-                                    imageViewListEasy[lastClicked].setImageResource(R.drawable.kart_arka);
-
-                                    imageViewListIcon[index].setVisibility(View.INVISIBLE);
-                                    imageViewListIcon[lastClicked].setVisibility(View.INVISIBLE);
-                                }
-
-                                /*else {
-
-                                    imageViewListEasy[index].setImageResource(cartoonList[index]);
-                                    imageViewListEasy[lastClicked].setImageResource(cartoonList[lastClicked]);
-
-                                    imageViewListEasy[index].setImageResource(R.drawable.kart_arka);
-                                    imageViewListEasy[lastClicked].setImageResource(R.drawable.kart_arka);
-                                }*/
-
-                                lastClicked = -1;
-                                clicked = 0;
-
-                            } /*else{
-                                imageViewListEasy[index].setImageResource(R.drawable.kart_arka);
-                                imageViewListEasy[lastClicked].setImageResource(R.drawable.kart_arka);
-                                lastClicked = -1;
-                                clicked = 0;
-                            }*/
-                        }
-                    });
-
-                }
+        game(category, difficulty,cardLists);
 
 
-                /*for (int i = 0; i < imageViewListEasy.length; i++) {
-                    imageViewListEasy[i].setImageResource(cartoonList[i]);
-                }*/
-            }
-        }
-
-        if (difficulty == Constants.MEDIUM || difficulty == Constants.HARD){
-
-            imageView13.setVisibility(View.VISIBLE);
-            imageView14.setVisibility(View.VISIBLE);
-            imageView15.setVisibility(View.VISIBLE);
-            imageView16.setVisibility(View.VISIBLE);
-
-            if (category.equals(Constants.CARTOON)){
-                cartoonList = cardLists.mediumCartoonList();
-
-                for(int i = 0; i<imageViewListMedium.length; i++){
-                    imageViewListMedium[i].setImageResource(cartoonList[i]);
-                }
-            }
-
-            if (difficulty == 2){
-
-                imageView17.setVisibility(View.VISIBLE);
-                imageView18.setVisibility(View.VISIBLE);
-                imageView19.setVisibility(View.VISIBLE);
-                imageView20.setVisibility(View.VISIBLE);
-
-                if (category.equals(Constants.CARTOON)){
-                    cartoonList = cardLists.hardCartoonList();
-
-                    for(int i = 0; i<imageViewListHard.length; i++){
-                        imageViewListHard[i].setImageResource(cartoonList[i]);
-                    }
-                }
-
-            }
-        }
-
-
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(30000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+
                 timeText.setText("Kalan süre: " + millisUntilFinished / 1000);
 
             }
 
             @Override
             public void onFinish() {
+
                 /*AlertDialog.Builder alert = new AlertDialog.Builder(GameFragment.this.getActivity());
 
                 alert.setTitle("OYUN BİTTİ");
@@ -271,10 +114,10 @@ public class GameFragment extends Fragment {
                 });
 
                 alert.show();*/
+
             }
         }.start();
     }
-
 
     private void init(View view){
 
@@ -340,6 +183,152 @@ public class GameFragment extends Fragment {
 
         cardLists = new CardLists();
 
+    }
+
+    public void game(String cat, int diff, CardLists cards){
+
+        if(diff == Constants.EASY){
+
+            if (cat.equals(Constants.CARTOON)) {
+
+                cardList = cards.easyCartoonList();
+
+                imageViewList = imageViewListEasy;
+
+            }
+        }
+
+        if (diff == Constants.MEDIUM || diff == Constants.HARD){
+
+            imageView13.setVisibility(View.VISIBLE);
+            imageView14.setVisibility(View.VISIBLE);
+            imageView15.setVisibility(View.VISIBLE);
+            imageView16.setVisibility(View.VISIBLE);
+
+            if (cat.equals(Constants.CARTOON)){
+
+                cardList = cards.mediumCartoonList();
+
+                imageViewList = imageViewListMedium;
+
+                //gameDetails(cardList, imageViewList);
+
+                /*for(int i = 0; i<imageViewList.length; i++){
+                    imageViewList[i].setImageResource(cardList[i]);
+                }*/
+            }
+
+            if (diff == 2){
+
+                imageView17.setVisibility(View.VISIBLE);
+                imageView18.setVisibility(View.VISIBLE);
+                imageView19.setVisibility(View.VISIBLE);
+                imageView20.setVisibility(View.VISIBLE);
+
+                if (cat.equals(Constants.CARTOON)){
+
+                    cardList = cards.hardCartoonList();
+
+                    imageViewList = imageViewListHard;
+
+                }
+
+            }
+        }
+
+        gameDetails(cardList, imageViewList);
+
+    }
+
+    public void gameDetails(Integer[] cardList, ImageView[] imageViewList){
+
+        matchList = new ArrayList<>();
+
+        for (int i = 0; i < imageViewList.length; i++){
+
+            int index = i;
+
+            imageViewList[index].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    clicked++;
+
+                    if(clicked<=2) {
+
+                        if (clicked == 1) {
+
+                            lastClicked = index;
+                            imageViewList[index].setImageResource(cardList[index]);
+                            imageViewList[index].setClickable(false);
+                        }
+
+                        if (clicked == 2) {
+
+                            imageViewList[index].setImageResource(cardList[index]);
+                            imageViewList[lastClicked].setImageResource(cardList[lastClicked]);
+
+                            imageViewList[index].setClickable(false);
+                            imageViewList[lastClicked].setClickable(false);
+
+                            if (cardList[index].toString().equals(cardList[lastClicked].toString())) {
+
+                                imageViewListIcon[index].setVisibility(View.VISIBLE);
+                                imageViewListIcon[lastClicked].setVisibility(View.VISIBLE);
+
+                                imageViewListIcon[index].setImageResource(R.drawable.ic_true);
+                                imageViewListIcon[lastClicked].setImageResource(R.drawable.ic_true);
+
+                                imageViewList[index].setClickable(false);
+                                imageViewList[lastClicked].setClickable(false);
+
+                                matchList.add(index);
+                                matchList.add(lastClicked);
+
+                                score += 1;
+                                scoreText.setText("PUAN: " + score);
+
+                            }else{
+
+                                imageViewListIcon[index].setVisibility(View.VISIBLE);
+                                imageViewListIcon[lastClicked].setVisibility(View.VISIBLE);
+
+                                imageViewListIcon[index].setImageResource(R.drawable.ic_false);
+                                imageViewListIcon[lastClicked].setImageResource(R.drawable.ic_false);
+
+                                for(ImageView imageView : imageViewList){
+                                    imageView.setClickable(false);
+                                }
+
+                                int a = lastClicked;
+
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        imageViewListIcon[index].setVisibility(View.INVISIBLE);
+                                        imageViewListIcon[a].setVisibility(View.INVISIBLE);
+
+                                        imageViewList[index].setImageResource(R.drawable.kart_arka);
+                                        imageViewList[a].setImageResource(R.drawable.kart_arka);
+
+                                        for(int j = 0; j< imageViewList.length; j++){
+                                            if (!matchList.contains(j)) {
+                                                imageViewList[j].setClickable(true);
+                                            }
+                                        }
+                                    }
+                                }, 1000);
+
+                            }
+
+                            lastClicked = -1;
+                            clicked = 0;
+                        }
+                    }
+                }
+            });
+
+        }
     }
 
 }
