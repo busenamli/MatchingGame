@@ -11,7 +11,8 @@ public class CardLists {
 
     private Integer[] cartoonList = {drawable.cartoon1, drawable.cartoon2, drawable.cartoon3, drawable.cartoon4,
             drawable.cartoon5, drawable.cartoon6, drawable.cartoon7, drawable.cartoon8, drawable.cartoon9,
-            drawable.cartoon10, drawable.cartoon11, drawable.cartoon12, drawable.cartoon13};
+            drawable.cartoon10, drawable.cartoon11, drawable.cartoon12, drawable.cartoon13, drawable.cartoon14,
+            drawable.cartoon15, drawable.cartoon16, drawable.cartoon17, drawable.cartoon18, drawable.cartoon19, drawable.cartoon20};
 
     private Integer[] mixedCartoonList = cardShuffle(cartoonList);
 
