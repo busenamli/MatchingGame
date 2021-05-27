@@ -14,16 +14,28 @@ public class CardLists {
             drawable.cartoon10, drawable.cartoon11, drawable.cartoon12, drawable.cartoon13, drawable.cartoon14,
             drawable.cartoon15, drawable.cartoon16, drawable.cartoon17, drawable.cartoon18, drawable.cartoon19, drawable.cartoon20};
 
+    private Integer[] emojiList = {drawable.emoji1, drawable.emoji2, drawable.emoji3, drawable.emoji4, drawable.emoji5, drawable.emoji6,
+            drawable.emoji7, drawable.emoji8, drawable.emoji9, drawable.emoji10, drawable.emoji11, drawable.emoji12, drawable.emoji13,
+            drawable.emoji14, drawable.emoji15, drawable.emoji16, drawable.emoji17, drawable.emoji18, drawable.emoji19, drawable.emoji20};
+
+    private Integer[] animalList = {drawable.animal1, drawable.animal2, drawable.animal3, drawable.animal4, drawable.animal5, drawable.animal6,
+            drawable.animal7, drawable.animal8, drawable.animal9, drawable.animal10, drawable.animal11, drawable.animal12, drawable.animal13,
+            drawable.animal14, drawable.animal15, drawable.animal16, drawable.animal17, drawable.animal18, drawable.animal19, drawable.animal20};
+
     private Integer[] mixedCartoonList = cardShuffle(cartoonList);
+    private Integer[] mixedEmojiList = cardShuffle(emojiList);
+    private Integer[] mixedAnimalList = cardShuffle(animalList);
 
-    private Integer[] easyCartoon = new Integer[6];
-    private Integer[] easyCartoonMix = new Integer[12];
+    Integer[] mixedList;
 
-    private Integer[] mediumCartoon = new Integer[8];
-    private Integer[] mediumCartoonMix = new Integer[16];
+    private Integer[] easyList = new Integer[6];
+    private Integer[] easyListMix = new Integer[12];
 
-    private Integer[] hardCartoon = new Integer[10];
-    private Integer[] hardCartoonMix = new Integer[20];
+    private Integer[] mediumList = new Integer[8];
+    private Integer[] mediumListMix = new Integer[16];
+
+    private Integer[] hardList = new Integer[10];
+    private Integer[] hardListMix = new Integer[20];
 
     private Integer[] cardShuffle(Integer[] cardList){
 
@@ -33,42 +45,72 @@ public class CardLists {
         return cardList;
     }
 
-    public Integer[] easyCartoonList(){
+    public Integer[] easyCartoonList(String category){
 
-        for(int i=0; i<easyCartoon.length; i++){
-            easyCartoon[i] = mixedCartoonList[i];
+        if (category.equals(Constants.CARTOON)){
+            mixedList = mixedCartoonList;
+
+        } else if (category.equals(Constants.EMOJI)){
+            mixedList = mixedEmojiList;
+
+        } else if (category.equals(Constants.ANIMAL)){
+            mixedList = mixedAnimalList;
         }
 
-        for(int i=0; i<easyCartoonMix.length; i++){
-            easyCartoonMix[i] = easyCartoon[i%6];
+        for(int i=0; i<easyList.length; i++){
+            easyList[i] = mixedList[i];
         }
 
-        return cardShuffle(easyCartoonMix);
+        for(int i=0; i<easyListMix.length; i++){
+            easyListMix[i] = easyList[i%6];
+        }
+
+        return cardShuffle(easyListMix);
     }
 
-    public Integer[] mediumCartoonList(){
+    public Integer[] mediumCartoonList(String category){
 
-        for(int i=0; i<mediumCartoon.length; i++){
-            mediumCartoon[i] = mixedCartoonList[i];
+        if (category.equals(Constants.CARTOON)){
+            mixedList = mixedCartoonList;
+
+        } else if (category.equals(Constants.EMOJI)){
+            mixedList = mixedEmojiList;
+
+        } else if (category.equals(Constants.ANIMAL)){
+            mixedList = mixedAnimalList;
         }
 
-        for(int i=0; i<mediumCartoonMix.length; i++){
-            mediumCartoonMix[i] = mediumCartoon[i%8];
+        for(int i=0; i<mediumList.length; i++){
+            mediumList[i] = mixedList[i];
         }
 
-        return cardShuffle(mediumCartoonMix);
+        for(int i=0; i<mediumListMix.length; i++){
+            mediumListMix[i] = mediumList[i%8];
+        }
+
+        return cardShuffle(mediumListMix);
     }
 
-    public Integer[] hardCartoonList(){
+    public Integer[] hardCartoonList(String category){
 
-        for(int i=0; i<hardCartoon.length; i++){
-            hardCartoon[i] = mixedCartoonList[i];
+        if (category.equals(Constants.CARTOON)){
+            mixedList = mixedCartoonList;
+
+        } else if (category.equals(Constants.EMOJI)){
+            mixedList = mixedEmojiList;
+
+        } else if (category.equals(Constants.ANIMAL)){
+            mixedList = mixedAnimalList;
         }
 
-        for(int i=0; i<hardCartoonMix.length; i++){
-            hardCartoonMix[i] = hardCartoon[i%10];
+        for(int i=0; i<hardList.length; i++){
+            hardList[i] = mixedList[i];
         }
 
-        return cardShuffle(hardCartoonMix);
+        for(int i=0; i<hardListMix.length; i++){
+            hardListMix[i] = hardList[i%10];
+        }
+
+        return cardShuffle(hardListMix);
     }
 }

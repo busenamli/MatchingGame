@@ -34,22 +34,22 @@
             android:text="@string/category_cartoon"/>
 
         <Button
-            android:id="@+id/category_vegetable_button"
+            android:id="@+id/category_emoji_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/category_vegetable"/>
+            android:text="@string/category_emoji"/>
 
         <Button
-            android:id="@+id/category_fruit_button"
+            android:id="@+id/category_animal_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/category_fruit"/>
+            android:text="@string/category_animal"/>
 
     </LinearLayout>
 

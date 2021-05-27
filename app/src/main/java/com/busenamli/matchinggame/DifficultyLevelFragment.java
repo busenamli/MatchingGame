@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -18,15 +19,6 @@ import org.jetbrains.annotations.NotNull;
 public class DifficultyLevelFragment extends Fragment {
 
     Button difficultyEasyButton, difficultyMediumButton, difficultyHardButton;
-
-    /*static final String EASY = "easy";
-    static final String MEDIUM = "medium";
-    static final String HARD = "hard";*/
-
-    static final int EASY = 0;
-    static final int MEDIUM = 1;
-    static final int HARD = 2;
-
     String category;
 
     public DifficultyLevelFragment() {
@@ -56,6 +48,8 @@ public class DifficultyLevelFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+
         if (getArguments() != null){
             category = DifficultyLevelFragmentArgs.fromBundle(getArguments()).getCategoryName();
         }
@@ -68,17 +62,10 @@ public class DifficultyLevelFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToEasyGameFragment actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToEasyGameFragment(category);
-                        actionEasy.setCategory(category);
-                        Navigation.findNavController(v).navigate(actionEasy);*/
-
-                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,EASY);
+                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,Constants.EASY);
                 actionEasy.setCategory(category);
-                actionEasy.setDifficulty(EASY);
+                actionEasy.setDifficulty(Constants.EASY);
                 Navigation.findNavController(v).navigate(actionEasy);
-
-                        /*NavDirections actionEasy = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToEasyGameFragment();
-                        Navigation.findNavController(view).navigate(actionEasy);*/
 
             }
         });
@@ -87,17 +74,10 @@ public class DifficultyLevelFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToMediumGameFragment actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToMediumGameFragment(category);
-                        actionMedium.setCategory(category);
-                        Navigation.findNavController(v).navigate(actionMedium);*/
-
-                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,MEDIUM);
+                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,Constants.MEDIUM);
                 actionMedium.setCategory(category);
-                actionMedium.setDifficulty(MEDIUM);
+                actionMedium.setDifficulty(Constants.MEDIUM);
                 Navigation.findNavController(v).navigate(actionMedium);
-
-                        /*NavDirections actionMedium = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToMediumGameFragment();
-                        Navigation.findNavController(view).navigate(actionMedium);*/
 
             }
         });
@@ -106,17 +86,10 @@ public class DifficultyLevelFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                /*DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToHardGameFragment actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToHardGameFragment(category);
-                        actionHard.setCategory(category);
-                        Navigation.findNavController(v).navigate(actionHard);*/
-
-                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,MEDIUM);
+                DifficultyLevelFragmentDirections.ActionDifficultyLevelFragmentToGameFragment actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToGameFragment(category,Constants.HARD);
                 actionHard.setCategory(category);
-                actionHard.setDifficulty(HARD);
+                actionHard.setDifficulty(Constants.HARD);
                 Navigation.findNavController(v).navigate(actionHard);
-
-                        /*NavDirections actionHard = DifficultyLevelFragmentDirections.actionDifficultyLevelFragmentToHardGameFragment();
-                        Navigation.findNavController(view).navigate(actionHard);*/
 
             }
         });

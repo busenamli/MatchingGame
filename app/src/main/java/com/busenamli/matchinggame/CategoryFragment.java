@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -17,18 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CategoryFragment extends Fragment {
 
-    Button categoryCartoonButton, categoryVegetableButton, categoryFruitButton;
-
-    static final String CARTOON = "cartoon";
-    static final String VEGETABLE = "vegetable";
-    static final String FRUIT = "fruit";
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    Button categoryCartoonButton, categoryEmojiButton, categoryAnimalButton;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -37,20 +27,12 @@ public class CategoryFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static CategoryFragment newInstance(String param1, String param2) {
         CategoryFragment fragment = new CategoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -64,35 +46,37 @@ public class CategoryFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+
         categoryCartoonButton = view.findViewById(R.id.category_cartoon_button);
-        categoryVegetableButton = view.findViewById(R.id.category_vegetable_button);
-        categoryFruitButton = view.findViewById(R.id.category_fruit_button);
+        categoryEmojiButton = view.findViewById(R.id.category_emoji_button);
+        categoryAnimalButton = view.findViewById(R.id.category_animal_button);
 
         categoryCartoonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionCartoon = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(CARTOON);
-                actionCartoon.setCategoryName(CARTOON);
+                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionCartoon = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(Constants.CARTOON);
+                actionCartoon.setCategoryName(Constants.CARTOON);
                 Navigation.findNavController(v).navigate(actionCartoon);
             }
         });
 
-        categoryVegetableButton.setOnClickListener(new View.OnClickListener() {
+        categoryEmojiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionVegetable = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(VEGETABLE);
-                actionVegetable.setCategoryName(VEGETABLE);
-                Navigation.findNavController(v).navigate(actionVegetable);
+                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionEmoji = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(Constants.EMOJI);
+                actionEmoji.setCategoryName(Constants.EMOJI);
+                Navigation.findNavController(v).navigate(actionEmoji);
             }
         });
 
-        categoryFruitButton.setOnClickListener(new View.OnClickListener() {
+        categoryAnimalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionFruit = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(FRUIT);
-                actionFruit.setCategoryName(FRUIT);
-                Navigation.findNavController(v).navigate(actionFruit);
+                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionAnimal = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(Constants.ANIMAL);
+                actionAnimal.setCategoryName(Constants.ANIMAL);
+                Navigation.findNavController(v).navigate(actionAnimal);
             }
         });
 

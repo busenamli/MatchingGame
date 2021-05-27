@@ -4,13 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -23,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,9 +36,15 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameFragment extends Fragment {
+
+    private static final String ARG_CATEGORY = "category";
+    private static final String ARG_DIFFICULTY = "difficulty";
 
     String category;
     int difficulty;
@@ -43,6 +53,8 @@ public class GameFragment extends Fragment {
     int lastClicked = -1;
     Handler handler;
     ArrayList<Integer> matchList;
+
+    CountDownTimer timer;
 
     TextView scoreText, timeText;
 
@@ -72,6 +84,11 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }*/
     }
 
     @Override
@@ -85,6 +102,8 @@ public class GameFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+
         if (getArguments() != null){
             category = GameFragmentArgs.fromBundle(getArguments()).getCategory();
             difficulty = GameFragmentArgs.fromBundle(getArguments()).getDifficulty();
@@ -94,66 +113,25 @@ public class GameFragment extends Fragment {
 
         game(category, difficulty,cardLists);
 
-
-        new CountDownTimer(30000, 1000) {
+        timer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                timeText.setText("Kalan süre: " + millisUntilFinished / 1000);
+                NumberFormat f = new DecimalFormat("00");
+
+                long minute = (millisUntilFinished / 60000) % 60;
+                long second = (millisUntilFinished / 1000) % 60;
+
+                timeText.setText("Kalan süre: " + f.format(minute) + ":" + f.format(second));
 
             }
 
             @Override
             public void onFinish() {
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(GameFragment.this.getActivity());
+                timeText.setText("Kalan süre: 00:00");
 
-                alert.setTitle("ZAMAN DOLDU");
-                alert.setMessage("Puanınız: " + score);
-                alert.setPositiveButton("Yeniden Oyna", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        //Fragment frg = GameFragment.this;
-                        //FragmentTransaction ft = (getActivity()).getSupportFragmentManager().beginTransaction();
-                        //(getActivity()).getSupportFragmentManager().beginTransaction().detach(GameFragment.this).attach(GameFragment.this).commit();
-
-                        /*Fragment frg = null;
-                        frg = getFragmentManager().findFragmentById(R.id.gameFragment);
-                        final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.detach(frg);
-                        ft.attach(frg);
-                        ft.commit();*/
-
-                        /*Fragment frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.gameFragment);
-                        FragmentTransaction ft = (getActivity()).getSupportFragmentManager().beginTransaction();
-                        ft.detach(frg);
-                        ft.attach(frg);
-                        ft.commit();*/
-
-                        /*Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.gameFragment);
-                        if (currentFragment instanceof com.busenamli.matchinggame.GameFragment){
-                            FragmentTransaction fragmentTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.detach(currentFragment);
-                            fragmentTransaction.attach(currentFragment);
-                            fragmentTransaction.commit();
-                        }*/
-
-
-                    }
-                });
-                alert.setNegativeButton("Çık", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        NavDirections action = GameFragmentDirections.actionGameFragmentToStartFragment();
-                        Navigation.findNavController(view).navigate(action);
-                    }
-                });
-
-                alert.setCancelable(false);
-                alert.show();
-
+                showDialog(timeText.getText().toString().substring(11));
             }
         }.start();
     }
@@ -230,8 +208,21 @@ public class GameFragment extends Fragment {
 
             if (cat.equals(Constants.CARTOON)) {
 
-                cardList = cards.easyCartoonList();
+                cardList = cards.easyCartoonList(Constants.CARTOON);
+                imageViewList = imageViewListEasy;
 
+            }
+
+            if (cat.equals(Constants.EMOJI)) {
+
+                cardList = cards.easyCartoonList(Constants.EMOJI);
+                imageViewList = imageViewListEasy;
+
+            }
+
+            if (cat.equals(Constants.ANIMAL)) {
+
+                cardList = cards.easyCartoonList(Constants.ANIMAL);
                 imageViewList = imageViewListEasy;
 
             }
@@ -246,15 +237,20 @@ public class GameFragment extends Fragment {
 
             if (cat.equals(Constants.CARTOON)){
 
-                cardList = cards.mediumCartoonList();
-
+                cardList = cards.mediumCartoonList(Constants.CARTOON);
                 imageViewList = imageViewListMedium;
+            }
 
-                //gameDetails(cardList, imageViewList);
+            if (cat.equals(Constants.EMOJI)){
 
-                /*for(int i = 0; i<imageViewList.length; i++){
-                    imageViewList[i].setImageResource(cardList[i]);
-                }*/
+                cardList = cards.mediumCartoonList(Constants.EMOJI);
+                imageViewList = imageViewListMedium;
+            }
+
+            if (cat.equals(Constants.ANIMAL)){
+
+                cardList = cards.mediumCartoonList(Constants.ANIMAL);
+                imageViewList = imageViewListMedium;
             }
 
             if (diff == 2){
@@ -266,8 +262,21 @@ public class GameFragment extends Fragment {
 
                 if (cat.equals(Constants.CARTOON)){
 
-                    cardList = cards.hardCartoonList();
+                    cardList = cards.hardCartoonList(Constants.CARTOON);
+                    imageViewList = imageViewListHard;
 
+                }
+
+                if (cat.equals(Constants.EMOJI)){
+
+                    cardList = cards.hardCartoonList(Constants.EMOJI);
+                    imageViewList = imageViewListHard;
+
+                }
+
+                if (cat.equals(Constants.ANIMAL)){
+
+                    cardList = cards.hardCartoonList(Constants.ANIMAL);
                     imageViewList = imageViewListHard;
 
                 }
@@ -276,15 +285,13 @@ public class GameFragment extends Fragment {
         }
 
         gameDetails(cardList, imageViewList);
-
     }
-
 
     public void gameDetails(Integer[] cardList, ImageView[] imageViewList){
 
         matchList = new ArrayList<>();
 
-        for (int i = 0; i < imageViewList.length; i++){
+        for (int i = 0; i < imageViewList.length; i++) {
 
             int index = i;
 
@@ -294,20 +301,18 @@ public class GameFragment extends Fragment {
 
                     clicked++;
 
-                    if(clicked<=2) {
+                    if (clicked <= 2) {
 
                         if (clicked == 1) {
 
                             lastClicked = index;
-                            //imageViewList[index].setImageResource(cardList[index]);
                             changeAnimation(imageViewList[index], cardList[index]);
                             imageViewList[index].setClickable(false);
+
                         }
 
                         if (clicked == 2) {
 
-                            //imageViewList[index].setImageResource(cardList[index]);
-                            //imageViewList[lastClicked].setImageResource(cardList[lastClicked]);
                             changeAnimation(imageViewList[index], cardList[index]);
 
                             imageViewList[index].setClickable(false);
@@ -336,12 +341,33 @@ public class GameFragment extends Fragment {
                                         imageViewListIcon[a].setImageResource(R.drawable.ic_true);
 
                                         scoreText.setText("PUAN: " + score);
+
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                ArrayList<Integer> visibilityList = new ArrayList<>();
+
+                                                for (int k = 0; k < imageViewList.length; k++){
+                                                    if(imageViewListIcon[k].getVisibility() == View.VISIBLE){
+                                                        visibilityList.add(k);
+                                                    }
+                                                }
+
+                                                if(visibilityList.size() == imageViewList.length){
+
+                                                    timer.cancel();
+                                                    showDialog(timeText.getText().toString().substring(11));
+                                                }
+
+                                            }
+                                        },500);
                                     }
                                 }, 1000);
 
-                            }else{
+                            } else {
 
-                                for(ImageView imageView : imageViewList){
+                                for (ImageView imageView : imageViewList) {
                                     imageView.setClickable(false);
                                 }
 
@@ -368,7 +394,7 @@ public class GameFragment extends Fragment {
                                                 changeAnimation(imageViewList[index], R.drawable.kart_arka);
                                                 changeAnimation(imageViewList[b], R.drawable.kart_arka);
 
-                                                for(int j = 0; j< imageViewList.length; j++){
+                                                for (int j = 0; j < imageViewList.length; j++) {
                                                     if (!matchList.contains(j)) {
                                                         imageViewList[j].setClickable(true);
                                                     }
@@ -387,7 +413,6 @@ public class GameFragment extends Fragment {
                     }
                 }
             });
-
         }
     }
 
@@ -407,6 +432,58 @@ public class GameFragment extends Fragment {
             }
         });
         oa1.start();
+    }
+
+    //http://ahmetardahanli.com/android-custom-alert-dialog-kullanimi
+    private void showDialog(String lastTime){
+
+        Dialog dialog = new Dialog(GameFragment.this.getActivity());
+
+        final View customLayout
+                = getLayoutInflater()
+                .inflate(
+                        R.layout.custom_dialog,
+                        null);
+
+        dialog.setContentView(customLayout);
+
+        Button againButton = customLayout.findViewById(R.id.button_again);
+        Button exitButton = customLayout.findViewById(R.id.button_exit);
+        TextView scoreTextView = customLayout.findViewById(R.id.textview_score);
+        TextView timeTextView = customLayout.findViewById(R.id.textview_time);
+
+        scoreTextView.setText("PUAN: " + score);
+        timeTextView.setText("KALAN SÜRE: " + lastTime);
+
+        againButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Bundle args = new Bundle();
+                args.putString(ARG_CATEGORY, category);
+                args.putInt(ARG_DIFFICULTY, difficulty);
+                Fragment fragment = new GameFragment();
+                fragment.setArguments(args);
+                ft.replace(R.id.nav_host_fragment, fragment).commit();
+            }
+        });
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+
+                NavDirections action = GameFragmentDirections.actionGameFragmentToStartFragment();
+                Navigation.findNavController(getView()).navigate(action);
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
 }

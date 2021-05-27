@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/startFragment"
         android:name="com.busenamli.matchinggame.StartFragment"
-        android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.busenamli.matchinggame.CategoryFragment"
-        android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
+        android:label="@string/category_fragment_label"
+        tools:layout="@layout/fragment_category">
         <action
             android:id="@+id/action_categoryFragment_to_difficultyLevelFragment"
             app:destination="@id/difficultyLevelFragment" />
@@ -26,8 +26,8 @@
     <fragment
         android:id="@+id/difficultyLevelFragment"
         android:name="com.busenamli.matchinggame.DifficultyLevelFragment"
-        android:label="fragment_difficulty_level"
-        tools:layout="@layout/fragment_difficulty_level" >
+        android:label="@string/difficulty_fragment_label"
+        tools:layout="@layout/fragment_difficulty_level">
         <argument
             android:name="categoryName"
             app:argType="string" />
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.busenamli.matchinggame.GameFragment"
-        android:label="fragment_game"
+        android:label="@string/game_fragment_label"
         tools:layout="@layout/fragment_game">
         <argument
             android:name="category"

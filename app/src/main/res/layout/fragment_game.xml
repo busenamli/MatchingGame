@@ -7,22 +7,11 @@
     tools:context=".GameFragment"
     android:background="@color/background_color">
 
-    <ImageView
-        android:id="@+id/game_back_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_arrow_back"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="3dp"
-        android:visibility="invisible"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp">
 
@@ -31,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/black"
@@ -521,6 +510,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:textStyle="bold"
