@@ -1,6 +1,7 @@
 package com.busenamli.matchinggame;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -31,4 +32,13 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    /*@Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        if (!(fragment instanceof IOBackPressed) || !((IOBackPressed) fragment).onBackPressed()){
+            super.onBackPressed();
+            GameFragment.timer.cancel();
+        }
+    }*/
 }

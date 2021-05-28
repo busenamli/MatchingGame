@@ -516,7 +516,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:text="PUAN: "/>
+            android:text="PUAN: 0"/>
 
     </RelativeLayout>
 

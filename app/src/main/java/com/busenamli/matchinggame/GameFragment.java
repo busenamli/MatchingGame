@@ -5,8 +5,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,24 +25,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class GameFragment extends Fragment {
+public class GameFragment extends Fragment{
 
     private static final String ARG_CATEGORY = "category";
     private static final String ARG_DIFFICULTY = "difficulty";
@@ -71,6 +66,9 @@ public class GameFragment extends Fragment {
     Integer[] cardList;
     CardLists cardLists;
 
+    MediaPlayer mpCorrect;
+    MediaPlayer mpWrong;
+
     public GameFragment() {
         // Required empty public constructor
     }
@@ -84,11 +82,6 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }*/
     }
 
     @Override
@@ -108,6 +101,9 @@ public class GameFragment extends Fragment {
             category = GameFragmentArgs.fromBundle(getArguments()).getCategory();
             difficulty = GameFragmentArgs.fromBundle(getArguments()).getDifficulty();
         }
+
+        mpCorrect = MediaPlayer.create(GameFragment.this.getActivity().getApplicationContext(), R.raw.zapsplat_correct_tone);
+        mpWrong = MediaPlayer.create(GameFragment.this.getActivity().getApplicationContext(), R.raw.zapsplat_wrong_tone);
 
         init(view);
 
@@ -132,6 +128,7 @@ public class GameFragment extends Fragment {
                 timeText.setText("Kalan süre: 00:00");
 
                 showDialog(timeText.getText().toString().substring(11));
+
             }
         }.start();
     }
@@ -200,6 +197,36 @@ public class GameFragment extends Fragment {
 
         cardLists = new CardLists();
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        timer.cancel();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        timer.cancel();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        timer.cancel();
     }
 
     public void game(String cat, int diff, CardLists cards){
@@ -303,6 +330,7 @@ public class GameFragment extends Fragment {
 
                     if (clicked <= 2) {
 
+                        //Bir kere tıklanma
                         if (clicked == 1) {
 
                             lastClicked = index;
@@ -311,6 +339,7 @@ public class GameFragment extends Fragment {
 
                         }
 
+                        //2 kere tıklanma
                         if (clicked == 2) {
 
                             changeAnimation(imageViewList[index], cardList[index]);
@@ -318,6 +347,7 @@ public class GameFragment extends Fragment {
                             imageViewList[index].setClickable(false);
                             imageViewList[lastClicked].setClickable(false);
 
+                            //kartlar eşleşiyorsa
                             if (cardList[index].toString().equals(cardList[lastClicked].toString())) {
 
                                 imageViewList[index].setClickable(false);
@@ -330,9 +360,12 @@ public class GameFragment extends Fragment {
 
                                 int a = lastClicked;
 
+                                //1sn bekle başarılı animasyonları
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+
+                                        mpCorrect.start();
 
                                         imageViewListIcon[index].setVisibility(View.VISIBLE);
                                         imageViewListIcon[a].setVisibility(View.VISIBLE);
@@ -342,6 +375,7 @@ public class GameFragment extends Fragment {
 
                                         scoreText.setText("PUAN: " + score);
 
+                                        //Hepsi eşleşmişse - oyun bittiyse
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
@@ -373,9 +407,12 @@ public class GameFragment extends Fragment {
 
                                 int b = lastClicked;
 
+                                //1sn bekle başarısız animasyonları
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+
+                                        mpWrong.start();
 
                                         imageViewListIcon[index].setVisibility(View.VISIBLE);
                                         imageViewListIcon[b].setVisibility(View.VISIBLE);
@@ -383,6 +420,7 @@ public class GameFragment extends Fragment {
                                         imageViewListIcon[index].setImageResource(R.drawable.ic_false);
                                         imageViewListIcon[b].setImageResource(R.drawable.ic_false);
 
+                                        //1sn bekle kartları kapat
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
@@ -437,7 +475,53 @@ public class GameFragment extends Fragment {
     //http://ahmetardahanli.com/android-custom-alert-dialog-kullanimi
     private void showDialog(String lastTime){
 
-        Dialog dialog = new Dialog(GameFragment.this.getActivity());
+        mpCorrect.stop();
+        mpWrong.stop();
+
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(GameFragment.this.getContext());
+        builder.setTitle("OYUN BİTTİ");
+
+        final View customLayout = getLayoutInflater().inflate(R.layout.custom_dialog,null);
+        builder.setView(customLayout);
+
+        TextView scoreTextView = customLayout.findViewById(R.id.textview_score);
+        TextView timeTextView = customLayout.findViewById(R.id.textview_time);
+
+        scoreTextView.setText("PUAN: " + score);
+        timeTextView.setText("KALAN SÜRE: " + lastTime);
+
+        builder.setPositiveButton("YENİDEN OYNA", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Bundle args = new Bundle();
+                args.putString(ARG_CATEGORY, category);
+                args.putInt(ARG_DIFFICULTY, difficulty);
+                Fragment fragment = new GameFragment();
+                fragment.setArguments(args);
+                ft.replace(R.id.nav_host_fragment, fragment).commit();
+
+            }
+        });
+
+        builder.setNegativeButton("ÇIK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                NavDirections action = GameFragmentDirections.actionGameFragmentToStartFragment();
+                Navigation.findNavController(getView()).navigate(action);
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();*/
+
+
+        Dialog dialog = new Dialog(GameFragment.this.getContext());
 
         final View customLayout
                 = getLayoutInflater()
@@ -458,6 +542,7 @@ public class GameFragment extends Fragment {
         againButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
 
                 FragmentManager fm = getFragmentManager();
@@ -486,4 +571,8 @@ public class GameFragment extends Fragment {
         dialog.show();
     }
 
+    /*@Override
+    public boolean onBackPressed() {
+        return true;
+    }*/
 }
