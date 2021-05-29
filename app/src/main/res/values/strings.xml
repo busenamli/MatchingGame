@@ -1,17 +1,18 @@
 <resources>
-    <string name="app_name">Matching Game</string>
+    <string name="app_name">MATCHING GAME</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="category_cartoon">Çizgi Filmler</string>
     <string name="category_emoji">Emojiler</string>
     <string name="category_animal">Hayvanlar</string>
+    <string name="category_transport">Araçlar</string>
 
     <string name="diffuculty_easy">Kolay (3x4)</string>
     <string name="diffuculty_medium">Orta (4x4)</string>
     <string name="diffuculty_hard">Zor (5x4)</string>
 
-    <string name="game_fragment_label">GAME</string>
+    <string name="game_fragment_label">OYUN</string>
     <string name="category_fragment_label">KATEGORİ</string>
     <string name="difficulty_fragment_label">ZORLUK</string>
 

@@ -49,6 +49,7 @@ public class DifficultyLevelFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        //getActivity().setTitle(R.string.difficulty_fragment_label);
 
         if (getArguments() != null){
             category = DifficultyLevelFragmentArgs.fromBundle(getArguments()).getCategoryName();

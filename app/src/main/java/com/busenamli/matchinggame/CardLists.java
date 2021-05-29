@@ -22,9 +22,15 @@ public class CardLists {
             drawable.animal7, drawable.animal8, drawable.animal9, drawable.animal10, drawable.animal11, drawable.animal12, drawable.animal13,
             drawable.animal14, drawable.animal15, drawable.animal16, drawable.animal17, drawable.animal18, drawable.animal19, drawable.animal20};
 
+    private Integer[] transportList = {drawable.transport1, drawable.transport2, drawable.transport3, drawable.transport4, drawable.transport5,
+            drawable.transport6, drawable.transport7, drawable.transport8, drawable.transport9, drawable.transport10, drawable.transport11,
+            drawable.transport12, drawable.transport13, drawable.transport14, drawable.transport15, drawable.transport16, drawable.transport17,
+            drawable.transport18, drawable.transport19, drawable.transport20};
+
     private Integer[] mixedCartoonList = cardShuffle(cartoonList);
     private Integer[] mixedEmojiList = cardShuffle(emojiList);
     private Integer[] mixedAnimalList = cardShuffle(animalList);
+    private Integer[] mixedTransportList = cardShuffle(transportList);
 
     Integer[] mixedList;
 
@@ -47,15 +53,7 @@ public class CardLists {
 
     public Integer[] easyCartoonList(String category){
 
-        if (category.equals(Constants.CARTOON)){
-            mixedList = mixedCartoonList;
-
-        } else if (category.equals(Constants.EMOJI)){
-            mixedList = mixedEmojiList;
-
-        } else if (category.equals(Constants.ANIMAL)){
-            mixedList = mixedAnimalList;
-        }
+        mixedList = getMixedList(category);
 
         for(int i=0; i<easyList.length; i++){
             easyList[i] = mixedList[i];
@@ -70,15 +68,7 @@ public class CardLists {
 
     public Integer[] mediumCartoonList(String category){
 
-        if (category.equals(Constants.CARTOON)){
-            mixedList = mixedCartoonList;
-
-        } else if (category.equals(Constants.EMOJI)){
-            mixedList = mixedEmojiList;
-
-        } else if (category.equals(Constants.ANIMAL)){
-            mixedList = mixedAnimalList;
-        }
+        mixedList = getMixedList(category);
 
         for(int i=0; i<mediumList.length; i++){
             mediumList[i] = mixedList[i];
@@ -93,15 +83,7 @@ public class CardLists {
 
     public Integer[] hardCartoonList(String category){
 
-        if (category.equals(Constants.CARTOON)){
-            mixedList = mixedCartoonList;
-
-        } else if (category.equals(Constants.EMOJI)){
-            mixedList = mixedEmojiList;
-
-        } else if (category.equals(Constants.ANIMAL)){
-            mixedList = mixedAnimalList;
-        }
+        mixedList = getMixedList(category);
 
         for(int i=0; i<hardList.length; i++){
             hardList[i] = mixedList[i];
@@ -112,5 +94,23 @@ public class CardLists {
         }
 
         return cardShuffle(hardListMix);
+    }
+
+    private Integer[] getMixedList(String category){
+
+        if (category.equals(Constants.CARTOON)){
+            mixedList = mixedCartoonList;
+
+        } else if (category.equals(Constants.EMOJI)){
+            mixedList = mixedEmojiList;
+
+        } else if (category.equals(Constants.ANIMAL)){
+            mixedList = mixedAnimalList;
+
+        }else if(category.equals(Constants.TRANSPORT)){
+            mixedList = mixedTransportList;
+        }
+
+        return mixedList;
     }
 }

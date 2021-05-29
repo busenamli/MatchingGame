@@ -51,7 +51,7 @@ public class GameFragment extends Fragment{
 
     CountDownTimer timer;
 
-    TextView scoreText, timeText;
+    TextView scoreText, timeText, plusScoreText;
 
     ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7, imageView8, imageView9, imageView10, imageView11,
             imageView12, imageView13, imageView14, imageView15, imageView16, imageView17, imageView18, imageView19, imageView20;
@@ -96,6 +96,7 @@ public class GameFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        getActivity().setTitle("");
 
         if (getArguments() != null){
             category = GameFragmentArgs.fromBundle(getArguments()).getCategory();
@@ -109,7 +110,7 @@ public class GameFragment extends Fragment{
 
         game(category, difficulty,cardLists);
 
-        timer = new CountDownTimer(10000, 1000) {
+        timer = new CountDownTimer(180000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -179,6 +180,8 @@ public class GameFragment extends Fragment{
 
         scoreText = view.findViewById(R.id.game_score_text);
         timeText = view.findViewById(R.id.game_time);
+        plusScoreText = view.findViewById(R.id.game_plus_score_text);
+        plusScoreText.setVisibility(View.INVISIBLE);
 
         imageViewListEasy = new ImageView[]{imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7, imageView8, imageView9, imageView10, imageView11,
                 imageView12};
@@ -253,6 +256,13 @@ public class GameFragment extends Fragment{
                 imageViewList = imageViewListEasy;
 
             }
+
+            if (cat.equals(Constants.TRANSPORT)) {
+
+                cardList = cards.easyCartoonList(Constants.TRANSPORT);
+                imageViewList = imageViewListEasy;
+
+            }
         }
 
         if (diff == Constants.MEDIUM || diff == Constants.HARD){
@@ -280,6 +290,12 @@ public class GameFragment extends Fragment{
                 imageViewList = imageViewListMedium;
             }
 
+            if (cat.equals(Constants.TRANSPORT)){
+
+                cardList = cards.mediumCartoonList(Constants.TRANSPORT);
+                imageViewList = imageViewListMedium;
+            }
+
             if (diff == 2){
 
                 imageView17.setVisibility(View.VISIBLE);
@@ -304,6 +320,13 @@ public class GameFragment extends Fragment{
                 if (cat.equals(Constants.ANIMAL)){
 
                     cardList = cards.hardCartoonList(Constants.ANIMAL);
+                    imageViewList = imageViewListHard;
+
+                }
+
+                if (cat.equals(Constants.TRANSPORT)){
+
+                    cardList = cards.hardCartoonList(Constants.TRANSPORT);
                     imageViewList = imageViewListHard;
 
                 }
@@ -356,7 +379,20 @@ public class GameFragment extends Fragment{
                                 matchList.add(index);
                                 matchList.add(lastClicked);
 
-                                score += 1;
+                                if(difficulty == Constants.EASY){
+                                    plusScoreText.setText("+2");
+                                    score = score + 2;
+                                }
+
+                                if(difficulty == Constants.MEDIUM){
+                                    plusScoreText.setText("+4");
+                                    score = score + 4;
+                                }
+
+                                if (difficulty == Constants.HARD){
+                                    plusScoreText.setText("+6");
+                                    score = score + 6;
+                                }
 
                                 int a = lastClicked;
 
@@ -373,6 +409,7 @@ public class GameFragment extends Fragment{
                                         imageViewListIcon[index].setImageResource(R.drawable.ic_true);
                                         imageViewListIcon[a].setImageResource(R.drawable.ic_true);
 
+                                        plusScoreText.setVisibility(View.VISIBLE);
                                         scoreText.setText("PUAN: " + score);
 
                                         //Hepsi eşleşmişse - oyun bittiyse
@@ -380,6 +417,8 @@ public class GameFragment extends Fragment{
                                             @Override
                                             public void run() {
 
+                                                plusScoreText.setVisibility(View.INVISIBLE);
+                                                mpCorrect.stop();
                                                 ArrayList<Integer> visibilityList = new ArrayList<>();
 
                                                 for (int k = 0; k < imageViewList.length; k++){
@@ -420,6 +459,19 @@ public class GameFragment extends Fragment{
                                         imageViewListIcon[index].setImageResource(R.drawable.ic_false);
                                         imageViewListIcon[b].setImageResource(R.drawable.ic_false);
 
+                                        /*if(difficulty == Constants.MEDIUM){
+                                            plusScoreText.setVisibility(View.VISIBLE);
+                                            plusScoreText.setText("-1");
+                                            score = score - 1;
+                                        }
+                                        if (difficulty == Constants.HARD){
+                                            plusScoreText.setVisibility(View.VISIBLE);
+                                            plusScoreText.setText("-2");
+                                            score = score - 2;
+                                        }*/
+
+                                        scoreText.setText("PUAN: " + score);
+
                                         //1sn bekle kartları kapat
                                         handler.postDelayed(new Runnable() {
                                             @Override
@@ -437,12 +489,13 @@ public class GameFragment extends Fragment{
                                                         imageViewList[j].setClickable(true);
                                                     }
                                                 }
+                                                plusScoreText.setVisibility(View.INVISIBLE);
+                                                mpWrong.stop();
                                             }
                                         }, 1000);
 
                                     }
                                 }, 1000);
-
                             }
 
                             lastClicked = -1;
@@ -477,49 +530,6 @@ public class GameFragment extends Fragment{
 
         mpCorrect.stop();
         mpWrong.stop();
-
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(GameFragment.this.getContext());
-        builder.setTitle("OYUN BİTTİ");
-
-        final View customLayout = getLayoutInflater().inflate(R.layout.custom_dialog,null);
-        builder.setView(customLayout);
-
-        TextView scoreTextView = customLayout.findViewById(R.id.textview_score);
-        TextView timeTextView = customLayout.findViewById(R.id.textview_time);
-
-        scoreTextView.setText("PUAN: " + score);
-        timeTextView.setText("KALAN SÜRE: " + lastTime);
-
-        builder.setPositiveButton("YENİDEN OYNA", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                Bundle args = new Bundle();
-                args.putString(ARG_CATEGORY, category);
-                args.putInt(ARG_DIFFICULTY, difficulty);
-                Fragment fragment = new GameFragment();
-                fragment.setArguments(args);
-                ft.replace(R.id.nav_host_fragment, fragment).commit();
-
-            }
-        });
-
-        builder.setNegativeButton("ÇIK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                NavDirections action = GameFragmentDirections.actionGameFragmentToStartFragment();
-                Navigation.findNavController(getView()).navigate(action);
-
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.show();*/
-
 
         Dialog dialog = new Dialog(GameFragment.this.getContext());
 
@@ -570,9 +580,4 @@ public class GameFragment extends Fragment{
         dialog.setCancelable(false);
         dialog.show();
     }
-
-    /*@Override
-    public boolean onBackPressed() {
-        return true;
-    }*/
 }

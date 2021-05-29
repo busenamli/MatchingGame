@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CategoryFragment extends Fragment {
 
-    Button categoryCartoonButton, categoryEmojiButton, categoryAnimalButton;
+    Button categoryCartoonButton, categoryEmojiButton, categoryAnimalButton, categoryTransportButton;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -47,10 +47,12 @@ public class CategoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        //getActivity().setTitle(R.string.category_fragment_label);
 
         categoryCartoonButton = view.findViewById(R.id.category_cartoon_button);
         categoryEmojiButton = view.findViewById(R.id.category_emoji_button);
         categoryAnimalButton = view.findViewById(R.id.category_animal_button);
+        categoryTransportButton = view.findViewById(R.id.category_transport_button);
 
         categoryCartoonButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +79,17 @@ public class CategoryFragment extends Fragment {
                 CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionAnimal = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(Constants.ANIMAL);
                 actionAnimal.setCategoryName(Constants.ANIMAL);
                 Navigation.findNavController(v).navigate(actionAnimal);
+            }
+        });
+
+        categoryTransportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CategoryFragmentDirections.ActionCategoryFragmentToDifficultyLevelFragment actionTransport = CategoryFragmentDirections.actionCategoryFragmentToDifficultyLevelFragment(Constants.TRANSPORT);
+                actionTransport.setCategoryName(Constants.TRANSPORT);
+                Navigation.findNavController(v).navigate(actionTransport);
+
             }
         });
 

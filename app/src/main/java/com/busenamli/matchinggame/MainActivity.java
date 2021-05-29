@@ -1,6 +1,7 @@
 package com.busenamli.matchinggame;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     AppBarConfiguration appBarConfiguration;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +25,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
 
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController,appBarConfiguration);
+        toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        NavigationUI.setupWithNavController(toolbar,navController,appBarConfiguration);
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
 
-    /*@Override
-    public void onBackPressed() {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        if (!(fragment instanceof IOBackPressed) || !((IOBackPressed) fragment).onBackPressed()){
-            super.onBackPressed();
-            GameFragment.timer.cancel();
-        }
-    }*/
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
+        return NavigationUI.navigateUp(navController,appBarConfiguration);
+    }
 }

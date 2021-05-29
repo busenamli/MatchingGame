@@ -5,6 +5,7 @@ public class Constants {
     static final String CARTOON = "cartoon";
     static final String EMOJI = "emoji";
     static final String ANIMAL = "animal";
+    static final String TRANSPORT = "transport";
 
     static final int EASY = 0;
     static final int MEDIUM = 1;

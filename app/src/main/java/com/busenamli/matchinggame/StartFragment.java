@@ -49,7 +49,8 @@ public class StartFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        //((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        getActivity().setTitle("");
 
         startText = view.findViewById(R.id.start_text);
         startButton = view.findViewById(R.id.start_button);

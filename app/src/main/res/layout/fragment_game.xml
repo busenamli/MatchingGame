@@ -518,6 +518,22 @@
             android:textColor="@color/black"
             android:text="PUAN: 0"/>
 
+        <TextView
+            android:id="@+id/game_plus_score_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/game_score_text"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#6A077A"
+            android:text=" +1"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:background="@drawable/circle_shape"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
 
