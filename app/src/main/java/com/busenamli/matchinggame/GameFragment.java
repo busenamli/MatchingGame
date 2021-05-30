@@ -110,7 +110,7 @@ public class GameFragment extends Fragment{
 
         game(category, difficulty,cardLists);
 
-        timer = new CountDownTimer(180000, 1000) {
+        timer = new CountDownTimer(150000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -410,15 +410,14 @@ public class GameFragment extends Fragment{
                                         imageViewListIcon[a].setImageResource(R.drawable.ic_true);
 
                                         plusScoreText.setVisibility(View.VISIBLE);
-                                        scoreText.setText("PUAN: " + score);
 
                                         //Hepsi eşleşmişse - oyun bittiyse
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
 
+                                                scoreText.setText("PUAN: " + score);
                                                 plusScoreText.setVisibility(View.INVISIBLE);
-                                                mpCorrect.stop();
                                                 ArrayList<Integer> visibilityList = new ArrayList<>();
 
                                                 for (int k = 0; k < imageViewList.length; k++){
@@ -434,7 +433,7 @@ public class GameFragment extends Fragment{
                                                 }
 
                                             }
-                                        },500);
+                                        },1000);
                                     }
                                 }, 1000);
 
@@ -468,9 +467,9 @@ public class GameFragment extends Fragment{
                                             plusScoreText.setVisibility(View.VISIBLE);
                                             plusScoreText.setText("-2");
                                             score = score - 2;
-                                        }*/
+                                        }
 
-                                        scoreText.setText("PUAN: " + score);
+                                        scoreText.setText("PUAN: " + score);*/
 
                                         //1sn bekle kartları kapat
                                         handler.postDelayed(new Runnable() {
@@ -490,7 +489,6 @@ public class GameFragment extends Fragment{
                                                     }
                                                 }
                                                 plusScoreText.setVisibility(View.INVISIBLE);
-                                                mpWrong.stop();
                                             }
                                         }, 1000);
 
